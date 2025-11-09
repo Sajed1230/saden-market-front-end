@@ -1,5 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { Link } from "react-router-dom";
+
 import {
   FaBolt,
   FaShieldAlt,
@@ -245,7 +247,7 @@ const HomePage = () => {
           Your premier destination for cutting-edge electronics and innovative
           technology solutions. Discover the future of electronics with us.
         </p>
-        <CTAButton href="/products">
+        <CTAButton to="/products" as={Link}>
           <FaShoppingCart /> Explore Products
         </CTAButton>
       </HeroSection>
