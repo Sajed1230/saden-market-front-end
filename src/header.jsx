@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { clearUser } from "../redux/userSlice";
+import { Link } from "react-router-dom"; // ✅ Import Link
 
 // Animations
 const slideDown = keyframes`
@@ -43,12 +44,14 @@ const NavContainer = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.a`
+const Logo = styled(Link)`
+  /* ✅ Use Link instead of a */
   font-size: 2rem;
   font-weight: 700;
   color: #3b82f6;
   text-decoration: none;
   animation: ${pulse} 2s infinite;
+
   span {
     color: #9333ea;
   }
@@ -111,18 +114,19 @@ const NavLinks = styled.ul`
     background: rgba(255, 255, 255, 0.98);
     position: fixed;
     top: 0;
-    right: ${({ open }) => (open ? "0" : "-100%")}; /* slide fully offscreen */
+    right: ${({ open }) => (open ? "0" : "-100%")};
     width: 250px;
     height: 100vh;
     padding-top: 5rem;
     gap: 2rem;
-    z-index: 2000; /* above overlay */
+    z-index: 2000;
     transition: right 0.3s ease;
     box-shadow: -2px 0 15px rgba(0, 0, 0, 0.2);
   }
 `;
 
-const CartIcon = styled.a`
+const CartIcon = styled(Link)`
+  /* ✅ Use Link */
   font-size: 1.6rem;
   color: #3b82f6;
   display: flex;
@@ -154,7 +158,9 @@ export default function Header() {
     <>
       <Navbar>
         <NavContainer>
-          <Logo href="/">
+          <Logo to="/">
+            {" "}
+            {/* ✅ Link instead of href */}
             Saden<span>Tech</span>
           </Logo>
 
@@ -164,29 +170,29 @@ export default function Header() {
 
           <NavLinks open={menuOpen}>
             <li>
-              <a href="/">
+              <Link to="/" onClick={() => setMenuOpen(false)}>
                 <FaHome /> Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/about">
+              <Link to="/about" onClick={() => setMenuOpen(false)}>
                 <FaInfoCircle /> About
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/products">
+              <Link to="/products" onClick={() => setMenuOpen(false)}>
                 <FaLaptop /> Products
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/contact">
+              <Link to="/contact" onClick={() => setMenuOpen(false)}>
                 <FaEnvelope /> Contact
-              </a>
+              </Link>
             </li>
 
             {totalQuantity > 0 && (
               <li>
-                <CartIcon href="/cart">
+                <CartIcon to="/cart" onClick={() => setMenuOpen(false)}>
                   <FaShoppingCart />
                   <span
                     style={{
@@ -216,14 +222,22 @@ export default function Header() {
             ) : (
               <>
                 <li>
-                  <a href="/login" className="button">
+                  <Link
+                    to="/login"
+                    className="button"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Login
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/signup" className="button">
+                  <Link
+                    to="/signup"
+                    className="button"
+                    onClick={() => setMenuOpen(false)}
+                  >
                     Sign Up
-                  </a>
+                  </Link>
                 </li>
               </>
             )}
